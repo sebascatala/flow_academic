@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "843070531728",
+    "project_id": "flow-academic",
+    "storage_bucket": "flow-academic.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843070531728:android:959200f493b172b0ed5015",
+        "android_client_info": {
+          "package_name": "com.example.flow_academic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcbAPFDcDAXk24O1WYBmmQA7reESijz4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

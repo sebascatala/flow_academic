@@ -37,7 +37,7 @@ el portal universitario.
   `lib/firebase_options.dart` ya apunta al proyecto del equipo.
 
 ## Instalación y arranque
-    git clone [URL del repositorio]
+    git clone https://github.com/sebascatala/flow_academic
     cd flow_academic
     flutter pub get
     flutter run

@@ -8,10 +8,12 @@ class MateriasProvider extends ChangeNotifier {
     _sub = repositorio.observarMaterias(usuarioId).listen(
           (lista) {
         _materias = lista;
+        _cargando = false;
         _error = null;
         notifyListeners();
       },
       onError: (_) {
+        _cargando = false;
         _error = 'No se pudieron cargar las materias.';
         notifyListeners();
       },
@@ -22,9 +24,11 @@ class MateriasProvider extends ChangeNotifier {
   final String usuarioId;
   late final StreamSubscription<List<Materia>> _sub;
   List<Materia> _materias = [];
+  bool _cargando = true;
   String? _error;
 
   List<Materia> get materias => _materias;
+  bool get cargando => _cargando;
   String? get error => _error;
 
   Future<void> crear(Materia materia) => repositorio.crear(usuarioId, materia);

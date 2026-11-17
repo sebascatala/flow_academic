@@ -17,6 +17,7 @@ import 'features/academic/presentation/providers/materias_provider.dart';
 import 'features/academic/presentation/providers/tareas_provider.dart';
 import 'features/ prioritization/presentation/pages/lista_prioridades_page.dart';
 import 'features/ prioritization/presentation/providers/prioridades_provider.dart';
+import 'features/academic/presentation/pages/materias_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,8 +90,30 @@ class _Sesion extends StatelessWidget {
 class _Inicio extends StatelessWidget {
   const _Inicio();
 
+  // La pantalla se abre en una ruta nueva, que no cuelga de los providers de la
+  // sesión; por eso se pasa el provider ya existente con .value.
+  void _abrirMaterias(BuildContext context) {
+    final materias = context.read<MateriasProvider>();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ChangeNotifierProvider.value(
+          value: materias,
+          child: const MateriasPage(),
+        ),
+      ),
+    );
+  }
+
   Future<void> _nuevaTarea(BuildContext context) async {
     final materias = context.read<MateriasProvider>().materias;
+    if (materias.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Primero registra una materia para poder crear tareas.')));
+      _abrirMaterias(context);
+      return;
+    }
+
     final tareas = context.read<TareasProvider>();
     final prioridades = context.read<PrioridadesProvider>();
     final mensajero = ScaffoldMessenger.of(context);
@@ -119,29 +142,15 @@ class _Inicio extends StatelessWidget {
     }
   }
 
-  // TEMPORAL: hasta que Ana Elena termine la pantalla de materias.
-  Future<void> _cargarMateriasDePrueba(BuildContext context) async {
-    final materias = context.read<MateriasProvider>();
-    final mensajero = ScaffoldMessenger.of(context);
-    await materias.crear(const Materia(
-        id: 'cal', nombre: 'Cálculo II', codigo: 'MAT-201',
-        docente: 'Docente', creditos: 5, promedio: 40));
-    await materias.crear(const Materia(
-        id: 'his', nombre: 'Historia', codigo: 'HUM-101',
-        docente: 'Docente', creditos: 3, promedio: 90));
-    mensajero.showSnackBar(
-        const SnackBar(content: Text('Materias de prueba cargadas.')));
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListaPrioridadesPage(
       onNuevaTarea: () => _nuevaTarea(context),
       acciones: [
         IconButton(
-          icon: const Icon(Icons.science_outlined),
-          tooltip: 'Cargar materias de prueba',
-          onPressed: () => _cargarMateriasDePrueba(context),
+          icon: const Icon(Icons.menu_book_outlined),
+          tooltip: 'Mis materias',
+          onPressed: () => _abrirMaterias(context),
         ),
         IconButton(
           icon: const Icon(Icons.logout),

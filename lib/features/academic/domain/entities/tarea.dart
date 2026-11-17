@@ -1,25 +1,34 @@
-import 'materia.dart';
-
-enum EstadoTarea { pendiente, enProgreso, completada }
+enum EstadoTarea { pendiente, completada }
 
 class Tarea {
   final String id;
-  final Materia materia; // Relación directa con la entidad Materia
+  final String materiaId;
   final String titulo;
   final String descripcion;
   final DateTime fechaEntrega;
-  final double porcentajeNota; // Ej: 15.0 (vale 15% de la nota final)
-  final int dificultad;
+  final int dificultad; // 1 a 5
+  final int importancia; // 1 a 5
   final EstadoTarea estado;
 
   const Tarea({
     required this.id,
-    required this.materia,
+    required this.materiaId,
     required this.titulo,
-    this.descripcion = '',
     required this.fechaEntrega,
-    required this.porcentajeNota,
     required this.dificultad,
+    required this.importancia,
+    this.descripcion = '',
     this.estado = EstadoTarea.pendiente,
   });
+
+  Tarea copyWith({EstadoTarea? estado}) => Tarea(
+    id: id,
+    materiaId: materiaId,
+    titulo: titulo,
+    descripcion: descripcion,
+    fechaEntrega: fechaEntrega,
+    dificultad: dificultad,
+    importancia: importancia,
+    estado: estado ?? this.estado,
+  );
 }

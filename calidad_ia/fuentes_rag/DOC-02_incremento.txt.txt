@@ -1,0 +1,44 @@
+
+ID: DOC-02
+Fuente: FlowAcademic - Primer incremento funcional
+Version: v0.1-parcial1
+Secciones: V.1 y V.2
+Paginas: 6-8
+Tipo: Especificacion funcional
+
+[CA-06]
+
+Dadas la tarea A (Historia, vence en 2 días,
+dificultad 1, importancia 1, promedio de la materia 90)
+y la tarea B (Cálculo II, vence en 5 días, dificultad 5,
+importancia 5, promedio 40), cuando se muestra la lista,
+entonces B aparece sobre A.
+
+[REGLA-PRIORIZACION]
+
+El puntaje de cada tarea pendiente es una suma ponderada
+de cuatro factores normalizados entre 0 y 1:
+
+Puntaje = 0.40*U + 0.25*I + 0.20*D + 0.15*R
+
+U: Urgencia (40%).
+1 - días restantes / 14, acotada entre 0 y 1.
+Una tarea vencida vale 1.
+
+I: Importancia (25%).
+Importancia / 5.
+
+D: Dificultad (20%).
+Dificultad / 5.
+
+R: Rendimiento bajo (15%).
+1 - promedio de la materia / 100.
+
+Ante igual puntaje se ordena por la fecha de entrega
+más cercana y, luego, por título.
+
+Con los datos de CA-06, la tarea B obtiene
+aproximadamente 0.797 y la tarea A 0.448.
+
+Los pesos son provisionales y no han sido validados
+con usuarios.

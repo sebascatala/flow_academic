@@ -1,0 +1,16 @@
+
+ID: DOC-01
+Fuente: FlowAcademic - Dossier Final
+Version: v2.0
+Seccion: 10.4. Backend / logica de negocio
+Pagina: 20
+Tipo: Documentacion del proyecto
+
+Priorización → algoritmo determinista (no requiere IA).
+Asigna un puntaje a cada tarea combinando fecha de entrega,
+dificultad de la tarea, importancia/peso de la materia,
+rendimiento actual y carga acumulada, y ordena la lista
+de mayor a menor puntaje.
+
+Por su transparencia puede ejecutarse en la capa de
+Dominio del cliente para el MVP.

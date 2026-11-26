@@ -1,0 +1,36 @@
+
+ID: DOC-03
+Fuente: test/prioritization/calculador_prioridad_test.dart
+Commit de referencia: 7069449
+Criterio: CA-06
+Tipo: Especificacion de prueba automatizada
+
+Fecha de referencia:
+final hoy = DateTime(2026, 11, 16);
+
+Materias:
+Cálculo II: promedio 40.
+Historia: promedio 90.
+
+test('CA-06: B (difícil, importante, rendimiento bajo)
+queda sobre A aunque A vence antes', () {
+    final a = tarea('A', 'his', 2, dif: 1, imp: 1);
+    final b = tarea('B', 'cal', 5, dif: 5, imp: 5);
+
+    final r = calculador.ordenar(
+        tareas: [a, b],
+        materias: materias,
+        ahora: hoy
+    );
+
+    expect(ids(r), ['B', 'A']);
+    expect(r.map((p) => p.posicion), [1, 2]);
+    expect(r[0].puntaje, closeTo(0.797, 0.001));
+    expect(r[1].puntaje, closeTo(0.448, 0.001));
+});
+
+La prueba comprueba el orden de las tareas, sus posiciones
+y la proximidad de los puntajes a los valores esperados.
+
+Este archivo describe las comprobaciones de la prueba.
+No constituye por sí mismo evidencia de su ejecución.
